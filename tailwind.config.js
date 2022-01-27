@@ -13,7 +13,25 @@ module.exports = {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
         },
+        container: {
+            center: true,
+            padding: {
+                default: "1rem",
+                sm: "2rem",
+                lg: "4rem",
+                xl: "6rem",
+            },
+        },
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    variants: {
+        extend: {
+            opacity: ['disabled'],
+        },
+    },
+
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('tailwind-scrollbar-hide')
+    ],
 };
