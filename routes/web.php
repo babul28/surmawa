@@ -7,27 +7,31 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Lecturer\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(
-    ['middleware' => 'respondent'],
-    function () {
-        Route::get('/', [HomeController::class, '__invoke'])->name('college.home');
+$appUrl = config('app.url');
 
-        Route::post('/join', [JoinSurveyController::class, '__invoke'])->name('college.join.survey');
+Route::domain($appUrl)->group(function () {
+    Route::group(
+        ['middleware' => 'respondent'],
+        function () {
+            Route::get('/', [HomeController::class, '__invoke'])->name('college.home');
 
-        Route::get('/surveys', [CollegeSurveyController::class, '__invoke'])
-            ->middleware('already-join-survey')
-            ->name('college.survey.biodata');
-    }
-);
+            Route::post('/join', [JoinSurveyController::class, '__invoke'])->name('college.join.survey');
 
-Route::get('/surveys/summary/{respondent}', [CollegeSurveySummaryController::class, '__invoke'])->name('college.survey.summary');
+            Route::get('/surveys', [CollegeSurveyController::class, '__invoke'])
+                ->middleware('already-join-survey')
+                ->name('college.survey.biodata');
+        }
+    );
+
+    Route::get('/surveys/summary/{respondent}', [CollegeSurveySummaryController::class, '__invoke'])->name('college.survey.summary');
+
+    require __DIR__ . '/auth.php';
+});
 
 Route::group([
-    'prefix' => '/dashboard',
-    'as' => 'dashboard.',
-    'middleware' => ['auth']
+    'domain' => "lecturer.$appUrl",
+    'as' => 'lecturer.',
+    'middleware' => ['auth'],
 ], function () {
     Route::get('/', [DashboardController::class, '__invoke'])->name('index');
 });
-
-require __DIR__ . '/auth.php';
