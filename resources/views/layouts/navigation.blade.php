@@ -5,23 +5,23 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard.index') }}">
+                    <a href="{{ route('lecturer.index') }}">
                         <x-application-logo class="block h-11 md:h-12 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+                    <x-nav-link :href="route('lecturer.index')" :active="request()->routeIs('lecturer.index')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.index')">
+                    <x-nav-link :href="route('lecturer.index')">
                         {{ __('Surveys') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.index')">
+                    <x-nav-link :href="route('lecturer.index')">
                         {{ __('Reports') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.index')">
+                    <x-nav-link :href="route('lecturer.index')">
                         {{ __('Profile') }}
                     </x-nav-link>
                 </div>
@@ -85,16 +85,16 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+            <x-responsive-nav-link :href="route('lecturer.index')" :active="request()->routeIs('lecturer.index')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard.index')">
+            <x-responsive-nav-link :href="route('lecturer.index')">
                 {{ __('Surveys') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard.index')">
+            <x-responsive-nav-link :href="route('lecturer.index')">
                 {{ __('Reports') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard.index')">
+            <x-responsive-nav-link :href="route('lecturer.index')">
                 {{ __('Profile') }}
             </x-responsive-nav-link>
         </div>
