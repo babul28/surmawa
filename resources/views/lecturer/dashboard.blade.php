@@ -9,21 +9,21 @@
         <h1 class="text-2xl font-medium text-gray-800"><span class="font-bold">Hi {{ $user->name }}</span>, Welcome
             Back!</h1>
 
-        <livewire:lecturer.analytics.overview/>
+        <livewire:lecturer.analytics.overview />
 
         <div class="mt-8 lg:grid lg:grid-cols-5 lg:gap-8">
             <div class="lg:col-span-3">
-                <livewire:lecturer.analytics.chart/>
+                <livewire:lecturer.analytics.chart />
             </div>
 
-            <div class="mt-8 md:mt-2.5 col-span-2">
+            <div class="mt-8 lg:mt-2.5 col-span-2">
                 <div class="flex justify-between items-center">
                     <h3 class="text-gray-600">Last Activity</h3>
                     <a href="" class="text-sm text-gray-600 hover:text-blue-500">Show more</a>
                 </div>
 
                 <div class="mt-6">
-                    <livewire:lecturer.latest-submission/>
+                    <livewire:lecturer.latest-submission />
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
 
     <x-slot name="scripts">
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"
-                integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
+            integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
