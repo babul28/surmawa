@@ -926,6 +926,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@ryangjchandler/alpine-clipboard@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ryangjchandler/alpine-clipboard/-/alpine-clipboard-1.0.0.tgz#c88f278d75c4e9a231e4733f59894f97eaffeed7"
+  integrity sha512-iN6CBq8L01JCT67MKIvoqIP7c79c0OaX7v4BZzVCc/OwTl+8M3K73ps9veof0lx55P7G6xDD91qTUpRD3iqMtw==
+  dependencies:
+    alpinejs "^2.6.0"
+
 "@tailwindcss/forms@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.4.0.tgz#a46715e347a32d216a3973eb67473bd29ae3798e"
@@ -1411,7 +1418,7 @@ ajv@^8.0.0, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-alpinejs@^2.7.3:
+alpinejs@^2.6.0, alpinejs@^2.7.3:
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-2.8.2.tgz#b14ec21ae3cd78dcee4aed0a78ed0f01b676dac4"
   integrity sha512-5yOUtckn4CBp0qsHpo2qgjZyZit84uXvHbB7NJ27sn4FA6UlFl2i9PGUAdTXkcbFvvxDJBM+zpOD8RuNYFvQAw==
