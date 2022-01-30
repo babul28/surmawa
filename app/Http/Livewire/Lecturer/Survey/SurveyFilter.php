@@ -19,8 +19,18 @@ class SurveyFilter extends Component
     public function updating(string $property, string $value): void
     {
         if ($this->{$property} !== $value) {
-            $this->emit('updatingFilter', $property, $value);
+            $this->emit('updatingFilter', [$property => $value]);
         }
+    }
+
+    public function resetState(): void
+    {
+        $this->reset();
+        
+        $this->emit('updatingFilter', [
+            'filter' => '',
+            'sort' => 'latest'
+        ]);
     }
 
     public function render()

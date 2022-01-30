@@ -28,9 +28,13 @@ class SurveyList extends Component
         'sort' => ['except' => ''],
     ];
 
-    public function updatingFilter(string $property, ?string $value): void
+    public function updatingFilter(array $data): void
     {
-        $this->{$property} = $value;
+        foreach ($data as $property => $value) {
+            $this->{$property} = $value;
+        }
+
+        $this->resetPage();
     }
 
     public function getSurveysProperty(): LengthAwarePaginator
