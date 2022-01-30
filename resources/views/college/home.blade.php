@@ -76,7 +76,8 @@
                 <span class="w-11/12 pl-2">{{ $message }}</span>
             </div>
             @enderror
-            <form x-data="otpForm()" action="{{ route('college.join.survey') }}" method="POST" autocomplete="off">
+            <form x-data="otpForm()" x-init="init()"
+                  action="{{ route('college.join.survey') }}" method="POST" autocomplete="off">
                 <div class="w-full mx-auto md:w-2/3 lg:w-full h-52 bg-gray-600 rounded-xl p-6">
                     <h3 class="text-lg uppercase font-medium text-gray-100 text-center">Masukkan Kode Kelas</h3>
                     @csrf
@@ -108,7 +109,22 @@
         function otpForm() {
             return {
                 length: 6,
-                value: "",
+                value: `{{ request()->query('code') }}`,
+
+                init() {
+                    if (this.value !== '') {
+                        setTimeout(() => {
+                            const codes = this.value.split('');
+                            const inputs = Array.from(Array(this.length));
+
+                            inputs.forEach((element, i) => {
+                                this.$refs[i].value = codes[i] || '';
+                            });
+
+                            this.$refs[5].focus();
+                        }, 100);
+                    }
+                },
 
                 handleInput(e) {
                     const input = e.target;
@@ -132,6 +148,8 @@
                     inputs.forEach((element, i) => {
                         this.$refs[i].value = paste[i] || '';
                     });
+
+                    this.$refs[5].focus();
                 },
 
                 handleBackspace(e) {
