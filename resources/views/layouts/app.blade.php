@@ -21,7 +21,7 @@
 
     @livewireScripts
 
-    {{ $scripts }}
+    {{ $scripts ?? '' }}
 
 </head>
 

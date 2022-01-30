@@ -5,6 +5,8 @@ use App\Http\Controllers\College\CollegeSurveySummaryController;
 use App\Http\Controllers\College\JoinSurveyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Lecturer\DashboardController;
+use App\Http\Controllers\Lecturer\DownloadSurveyQrCodeController;
+use App\Http\Controllers\Lecturer\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 $appUrl = config('app.url');
@@ -34,4 +36,6 @@ Route::group([
     'middleware' => ['auth'],
 ], function () {
     Route::get('/', [DashboardController::class, '__invoke'])->name('index');
+    Route::get('/surveys', [SurveyController::class, '__invoke'])->name('surveys.index');
+    Route::get('/surveys/qr-code/{code}', [DownloadSurveyQrCodeController::class, '__invoke'])->name('surveys.qrcode');
 });

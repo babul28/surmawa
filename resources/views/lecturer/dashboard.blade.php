@@ -5,9 +5,10 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 class="text-2xl font-medium text-gray-800"><span class="font-bold">Hi {{ $user->name }}</span>, Welcome
-            Back!</h1>
+    <x-container>
+        <h1 class="text-2xl font-medium text-gray-800">
+            <span class="font-bold">Hi {{ $user->name }}</span>, Welcome Back!
+        </h1>
 
         <livewire:lecturer.analytics.overview />
 
@@ -27,7 +28,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </x-container>
 
     <x-slot name="scripts">
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"
