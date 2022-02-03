@@ -11,7 +11,7 @@ class CreateSurveyRespondentsTable extends Migration
         Schema::create('survey_respondents', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('respondent_id');
-            $table->foreignId('survey_id')->constrained('surveys')->onDelete('cascade');
+            $table->foreignUuid('survey_id')->constrained('surveys')->onDelete('cascade');
             $table->string('name');
             $table->string('nim');
             $table->string('gender');

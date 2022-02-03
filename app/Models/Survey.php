@@ -4,17 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 class Survey extends Model
 {
     public const ACTIVE = 1;
     public const DEACTIVE = 0;
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     protected $guarded = [];
 
     protected $casts = [
         'expired_at' => 'immutable_datetime',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(fn(self $model) => $model->id = Uuid::uuid4());
+    }
 
     public function getStatusDescAttribute(): string
     {

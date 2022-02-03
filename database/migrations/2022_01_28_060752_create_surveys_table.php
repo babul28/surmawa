@@ -14,8 +14,11 @@ class CreateSurveysTable extends Migration
     public function up()
     {
         Schema::create('surveys', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('lecturer_id')->nullable()->constrained()->onUpdate('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('lecturer_id')
+                ->nullable()
+                ->constrained()
+                ->onUpdate('cascade');
             $table->string('name');
             $table->string('department_name');
             $table->string('faculty_name');

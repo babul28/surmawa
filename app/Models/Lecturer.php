@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Ramsey\Uuid\Uuid;
 
 class Lecturer extends Authenticatable
 {
     use Notifiable;
 
+    public $incrementing = false;
+
     protected $guarded = [];
+
+    protected $keyType = 'string';
 
     protected $hidden = [
         'password',
@@ -20,7 +26,12 @@ class Lecturer extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function surveys()
+    protected static function booted(): void
+    {
+        static::creating(fn(self $model) => $model->id = Uuid::uuid4());
+    }
+
+    public function surveys(): HasMany
     {
         return $this->hasMany(Survey::class);
     }
