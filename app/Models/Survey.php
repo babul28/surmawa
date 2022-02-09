@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Model\WithStatusScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
 class Survey extends Model
 {
-    public const ACTIVE = 1;
-    public const DEACTIVE = 0;
+    use WithStatusScope;
 
     public $incrementing = false;
 
@@ -18,25 +18,13 @@ class Survey extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'starting_at' => 'immutable_datetime',
         'expired_at' => 'immutable_datetime',
     ];
 
     protected static function booted(): void
     {
         static::creating(fn(self $model) => $model->id = Uuid::uuid4());
-    }
-
-    public function getStatusDescAttribute(): string
-    {
-        if ($this->status === self::DEACTIVE) {
-            return 'inactive';
-        }
-
-        if (!$this->expired_at->isFuture()) {
-            return 'expired';
-        }
-
-        return 'active';
     }
 
     public function scopeFuzzySearch(Builder $query, string $searchString, array $fields): Builder

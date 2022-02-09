@@ -24,7 +24,6 @@ class CreateSurveysTable extends Migration
             $table->string('faculty_name');
             $table->string('university_name');
             $table->string('survey_code');
-            $table->unsignedTinyInteger('status');
             $table->timestamp('expired_at');
             $table->timestamps();
         });
