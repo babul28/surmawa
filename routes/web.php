@@ -6,6 +6,7 @@ use App\Http\Controllers\College\JoinSurveyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Lecturer\DashboardController;
 use App\Http\Controllers\Lecturer\DownloadSurveyQrCodeController;
+use App\Http\Controllers\Lecturer\SpecifiedSurveyController;
 use App\Http\Controllers\Lecturer\SurveyController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,5 +38,6 @@ Route::group([
 ], function () {
     Route::get('/', [DashboardController::class, '__invoke'])->name('index');
     Route::get('/surveys', [SurveyController::class, '__invoke'])->name('surveys.index');
+    Route::get('/surveys/{survey}', [SpecifiedSurveyController::class, '__invoke'])->name('surveys.show');
     Route::get('/surveys/qr-code/{code}', [DownloadSurveyQrCodeController::class, '__invoke'])->name('surveys.qrcode');
 });

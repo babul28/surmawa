@@ -11,6 +11,10 @@ class SurveyFilter extends Component
     public string $search = '';
     public string $sort = 'latest';
 
+    protected $listeners = [
+        'openCreateSurveyModalForm' => 'openModalForm',
+    ];
+
     public function mount(Request $request): void
     {
         $this->fill($request->only(['filter', 'search', 'sort']));
@@ -26,11 +30,23 @@ class SurveyFilter extends Component
     public function resetState(): void
     {
         $this->reset();
-        
+
         $this->emit('updatingFilter', [
             'filter' => '',
             'sort' => 'latest'
         ]);
+    }
+
+    public function openModalForm(): void
+    {
+        $this->emit(
+            'openModal',
+            'lecturer.survey.survey-form-modal',
+            [],
+            [
+                'maxWidth' => 'xl'
+            ]
+        );
     }
 
     public function render()

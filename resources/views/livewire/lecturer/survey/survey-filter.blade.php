@@ -89,6 +89,8 @@
         </div>
     </div>
 
-    <x-surveys.create-cta href="" class="hidden md:inline-block"/>
+    <x-surveys.create-cta
+        wire:click.prevent="openModalForm"
+        href="" class="hidden md:inline-block"/>
 
 </div>
