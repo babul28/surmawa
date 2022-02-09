@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Lecturer\Survey;
 
 use App\Models\Survey;
+use App\Pipelines\CustomSort;
+use App\Pipelines\FilterByStatus;
+use App\Pipelines\FuzzySearch;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,7 +22,8 @@ class SurveyList extends Component
     public string $sort = 'latest';
 
     protected $listeners = [
-        'updatingFilter'
+        'updatingFilter',
+        'refreshSurveyList' => '$refresh',
     ];
 
     protected $queryString = [
@@ -39,29 +43,27 @@ class SurveyList extends Component
 
     public function getSurveysProperty(): LengthAwarePaginator
     {
-        return Survey::query()
-            ->where('lecturer_id', Auth::id())
-            ->fuzzySearch($this->search, ['name'])
-            ->when($this->filter, function (Builder $q) {
-                if ($this->filter === 'expired') {
-                    return $q->where('expired_at', '<=', Carbon::now()->format('Y-m-d H:i'));
-                }
+        // bind state to request object
+        App::bind(Request::class, fn($app) => new Request($this->payload()));
 
-                if ($this->filter === 'inactive') {
-                    return $q->where('status', Survey::DEACTIVE);
-                }
-
-                return $q->where('expired_at', '>=', Carbon::now()->format('Y-m-d H:i'))
-                    ->where('status', Survey::ACTIVE);
-            })
-            ->when($this->sort, function (Builder $q) {
-                if ($this->sort === 'oldest') {
-                    return $q->orderBy('created_at');
-                }
-
-                return $q->orderByDesc('created_at');
-            })
+        return app(Pipeline::class)
+            ->send(Survey::query())
+            ->through([
+                FuzzySearch::class,
+                FilterByStatus::class,
+                CustomSort::class
+            ])
+            ->thenReturn()
             ->paginate(18);
+    }
+
+    protected function payload(): array
+    {
+        return [
+            'sort' => $this->sort,
+            'filter' => $this->filter,
+            'search' => $this->search,
+        ];
     }
 
     public function render()
