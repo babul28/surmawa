@@ -8,6 +8,12 @@ use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
 {
+    protected array $sharedLoggedUserViews = [
+        'layouts.app',
+        'layouts.navigation',
+        'lecturer.dashboard',
+    ];
+
     public function register(): void
     {
         //
@@ -15,6 +21,6 @@ class ViewServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        View::composer(['layouts.navigation', 'lecturer.dashboard'], LoggedUser::class);
+        View::composer($this->sharedLoggedUserViews, LoggedUser::class);
     }
 }
