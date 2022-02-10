@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -24,12 +26,18 @@ class JoinSurveyController extends Controller
 
     protected function rules(): array
     {
+        $current = Carbon::now();
+
         return [
             'survey_code' => [
                 'required',
                 'string',
                 'size:6',
-                Rule::exists('surveys', 'survey_code'),
+                Rule::exists('surveys', 'survey_code')->where(
+                    static fn(Builder $q) => $q
+                        ->where('starting_at', '<=', $current)
+                        ->where('expired_at', '>', $current)
+                ),
             ],
         ];
     }
